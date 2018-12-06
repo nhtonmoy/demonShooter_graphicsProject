@@ -20,8 +20,8 @@ void mouse(int button, int state, int x, int y) {
     int my = y;
 
     if(button==GLUT_LEFT_BUTTON && state==GLUT_DOWN){
-        printf("%d\n",mx);
-        printf("%d\n",my);
+//        printf("%d\n",mx);
+//        printf("%d\n",my);
 
         if(firstDemonLeftMost) //first demon leftmost position e ase
         {
@@ -31,10 +31,9 @@ void mouse(int button, int state, int x, int y) {
 
                 if(x1==mx && (my<=y2 && my>=y1))
                 {
+                    _angle2=90;
+
                     score++;
-                    printf("X: %d\n",x1);
-                    printf("Y1: %d\n",y1);
-                    printf("Y2: %d\n",y2);
                     break;
                 }
 
@@ -49,10 +48,8 @@ void mouse(int button, int state, int x, int y) {
 
                 if(x1==mx && (my<=y2 && my>=y1))
                 {
+                    _angle1=90;
                     score++;
-                    printf("X: %d\n",x1);
-                    printf("Y1: %d\n",y1);
-                    printf("Y2: %d\n",y2);
                     break;
                 }
 
@@ -67,10 +64,8 @@ void mouse(int button, int state, int x, int y) {
 
                 if(x1==mx && (my<=y2 && my>=y1))
                 {
+                    _angle3=90;
                     score++;
-                    printf("X: %d\n",x1);
-                    printf("Y1: %d\n",y1);
-                    printf("Y2: %d\n",y2);
                     break;
                 }
 
@@ -85,10 +80,8 @@ void mouse(int button, int state, int x, int y) {
 
                 if(x1==mx && (my<=y2 && my>=y1))
                 {
+                    _angle4=90;
                     score++;
-                    printf("X: %d\n",x1);
-                    printf("Y1: %d\n",y1);
-                    printf("Y2: %d\n",y2);
                     break;
                 }
 

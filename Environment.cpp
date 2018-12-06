@@ -1,3 +1,25 @@
+void leftBuildingErJanala(float x,float y)
+{
+    glBegin(GL_QUADS);
+    glColor3f(0.0,0.0,0.0);
+        glVertex3f(x,y,0);
+        glVertex3f(x+.15,y,0);
+        glVertex3f(x+.15,y+.065,0);
+        glVertex3f(x,y+.065,0);
+    glEnd();
+}
+
+void rightBuildingErJanala(float x, float y)
+{
+    glBegin(GL_QUADS);
+    glColor3f(0.0,0.0,0.0);
+        glVertex3f(x,y,0);
+        glVertex3f(x+.06,y,0);
+        glVertex3f(x+.06,y+0.06,0);
+        glVertex3f(x,y+0.06,0);
+
+    glEnd();
+}
 
 void buildingLeft(void)
 {
@@ -31,7 +53,21 @@ void buildingLeft(void)
         glVertex3f(-.45,-.10,0);
         glVertex3f(-.60,-.2,0);
     glEnd();
-    //glFlush ();
+
+
+
+    leftBuildingErJanala(-0.78,0.37);
+    leftBuildingErJanala(-0.78,0.25);
+    leftBuildingErJanala(-0.78,0.13);
+    leftBuildingErJanala(-0.78,0.01);
+
+    glBegin(GL_QUADS); //doroja
+        glVertex3f(-0.67,-0.07,0);
+        glVertex3f(-0.74,-0.07,0);
+        glVertex3f(-0.74,-0.20,0);
+        glVertex3f(-0.67,-0.20,0);
+    glEnd();
+
 }
 
 void buildingRight(void)
@@ -67,7 +103,45 @@ void buildingRight(void)
         glVertex3f(.25,-.10,0);
         glVertex3f(.1,-.2,0);
     glEnd();
-    //glFlush ();
+
+
+    rightBuildingErJanala(-.17,.45);
+    rightBuildingErJanala(-.08,.45);
+    rightBuildingErJanala(0.01,.45);
+
+
+    rightBuildingErJanala(-.17,.35);
+    rightBuildingErJanala(-.08,.35);
+    rightBuildingErJanala(0.01,.35);
+
+
+    rightBuildingErJanala(-.17,.25);
+    rightBuildingErJanala(-.08,.25);
+    rightBuildingErJanala(0.01,.25);
+
+
+    rightBuildingErJanala(-.17,.15);
+    rightBuildingErJanala(-.08,.15);
+    rightBuildingErJanala(0.01,.15);
+
+
+    rightBuildingErJanala(-.17,.05);
+    rightBuildingErJanala(-.08,.05);
+    rightBuildingErJanala(0.01,.05);
+
+
+    rightBuildingErJanala(-.17,-.05);
+    rightBuildingErJanala(-.08,-.05);
+    rightBuildingErJanala(0.01,-.05);
+
+    glBegin(GL_QUADS); //doroja
+    glColor3f(0.0,0.0,.0);
+        glVertex3f(-0.0,-0.1,0);
+        glVertex3f(-0.0,-0.20,0);
+        glVertex3f(-0.095,-0.20,0);
+        glVertex3f(-0.095,-0.1,0);
+    glEnd();
+
 }
 
 void river(void)
@@ -147,3 +221,4 @@ void paharPorbot()
         glVertex3f(0.94,.75,0.0);
     glEnd();
 }
+

@@ -4,6 +4,11 @@ bool firstDemonRightMost=false;
 bool secondDemonRightMost=false;
 
 
+bool isShotLeft1=false;
+bool isShotLeft2=false;
+bool isShotRight1=false;
+bool isShotRight2=false;
+
 
 void updateDemonLeftward1(int value);
 void updateDemonLeftward2(int value);
@@ -142,7 +147,7 @@ void updateDemonLeftward1(int value) { //ei method ta leftward 1 ke update korbe
 	if(rotateCountLeftward1==0 && !isLeftMost)
     {
         _angle2 -= 0.5f;
-        glutTimerFunc(25, updateDemonLeftward1, 0);
+        glutTimerFunc(5, updateDemonLeftward1, 0);
     }
 	else if(rotateCountLeftward1==0 && isLeftMost)
     {
@@ -156,7 +161,7 @@ void updateDemonLeftward1(int value) { //ei method ta leftward 1 ke update korbe
     else if(rotateCountLeftward1==1 && !isRightMost){
 
         _angle2 += 0.5f;
-        glutTimerFunc(25, updateDemonLeftward1, 0);
+        glutTimerFunc(5, updateDemonLeftward1, 0);
     }
     else if(rotateCountLeftward1==1 && isRightMost){
         _angle2 += 0.5f;
@@ -253,7 +258,7 @@ void updateDemonLeftward2(int value) { //ei method ta leftward 2 ke update korbe
 	if(rotateCount==0 && !isLeftMost)
     {
         _angle1 -= 0.5f;
-        glutTimerFunc(25, updateDemonLeftward2, 0);
+        glutTimerFunc(5, updateDemonLeftward2, 0);
     }
 	else if(rotateCount==0 && isLeftMost)
     {
@@ -264,7 +269,7 @@ void updateDemonLeftward2(int value) { //ei method ta leftward 2 ke update korbe
     }
     else if(rotateCount==1 && !isRightMost){
         _angle1 += 0.5f;
-        glutTimerFunc(25, updateDemonLeftward2, 0);
+        glutTimerFunc(5, updateDemonLeftward2, 0);
     }
     else if(rotateCount==1 && isRightMost){
         _angle1 += 0.5f;
@@ -359,7 +364,7 @@ void updateDemonRightward1(int value) { //ei method ta rightward 1 ke update kor
 	if(rotateCountRightward1==1 && !isLeftMost)
     {
         _angle3 -= 0.75f;
-        glutTimerFunc(25, updateDemonRightward1, 0);
+        glutTimerFunc(5, updateDemonRightward1, 0);
         //printf("Rotate=1,Right=0\n");
     }
 	else if(rotateCountRightward1==1 && isLeftMost)
@@ -372,7 +377,7 @@ void updateDemonRightward1(int value) { //ei method ta rightward 1 ke update kor
     }
     else if(rotateCountRightward1==0 && !isRightMost){
         _angle3 += 0.75f;
-        glutTimerFunc(25, updateDemonRightward1, 0);
+        glutTimerFunc(5, updateDemonRightward1, 0);
         //printf("Rotate=0,Left=0\n");
     }
     else if(rotateCountRightward1==0 && isRightMost){
@@ -466,7 +471,7 @@ void updateDemonRightward2(int value) { //ei method ta rightward 2 ke update kor
 	if(rotateCountRightward2==1 && !isLeftMost)
     {
         _angle4 -= 0.75f;
-        glutTimerFunc(50, updateDemonRightward2, 0);
+        glutTimerFunc(5, updateDemonRightward2, 0);
         //printf("Rotate=1,Right=0\n");
     }
 	else if(rotateCountRightward2==1 && isLeftMost)
@@ -479,7 +484,7 @@ void updateDemonRightward2(int value) { //ei method ta rightward 2 ke update kor
     }
     else if(rotateCountRightward2==0 && !isRightMost){
         _angle4 += 0.75f;
-        glutTimerFunc(50, updateDemonRightward2, 0);
+        glutTimerFunc(5, updateDemonRightward2, 0);
         //printf("Rotate=0,Left=0\n");
     }
     else if(rotateCountRightward2==0 && isRightMost){

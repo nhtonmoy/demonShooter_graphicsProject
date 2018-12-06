@@ -82,13 +82,13 @@ void drawBoats()
 
     glutSwapBuffers();
     //Sleep(500);
-    glutTimerFunc(100,updateBoats,0);
+    glutTimerFunc(70,updateBoats,0);
 }
 
 void updateBoats(int value)
 {
 
-    transFactor+=0.0005f;
+    transFactor+=0.0009f;
     if(transFactor>getXBoats(512*2))
        transFactor = -1 * getXBoats(512 * 2);
     glutPostRedisplay();
