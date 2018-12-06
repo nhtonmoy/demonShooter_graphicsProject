@@ -9,6 +9,9 @@ bool isShotLeft2=false;
 bool isShotRight1=false;
 bool isShotRight2=false;
 
+bool isShot=false;
+int shotCounter=0;
+
 
 void updateDemonLeftward1(int value);
 void updateDemonLeftward2(int value);
@@ -127,6 +130,7 @@ void drawDemonLeftward1() {
 
 void updateDemonLeftward1(int value) { //ei method ta leftward 1 ke update korbe
 
+    //isShotLeft1=true;
     //rotateCount=1;
     bool isRightMost=false;
     bool isLeftMost=false;
@@ -148,12 +152,14 @@ void updateDemonLeftward1(int value) { //ei method ta leftward 1 ke update korbe
     {
         _angle2 -= 0.5f;
         glutTimerFunc(5, updateDemonLeftward1, 0);
+
     }
 	else if(rotateCountLeftward1==0 && isLeftMost)
     {
         glutTimerFunc(2500, updateDemonLeftward1, 0);
         isRightMost=false;
         _angle2 -= 0.5f;
+        isShotLeft1=true;
 
         //printf("%d")
         //glutTimerFunc(25, update, 0);
@@ -166,6 +172,16 @@ void updateDemonLeftward1(int value) { //ei method ta leftward 1 ke update korbe
     else if(rotateCountLeftward1==1 && isRightMost){
         _angle2 += 0.5f;
         glutTimerFunc(2500, updateDemonLeftward1, 0);
+
+        //Shot hoise ki na sheita check korbe
+        if(!isShotLeft1) //shot hoy nai, agei maira felse
+        {
+            printf("safe\n");
+        }
+        else if(isShotLeft1){ //shot korte pare nai time moton, opponent maira dise
+            shotCounter++;
+            printf("shot: %d\n",shotCounter);
+        }
     }
 
 	glutPostRedisplay(); //Tell GLUT that the display has changed
@@ -237,7 +253,7 @@ void drawDemonLeftward2() {
 
 
 void updateDemonLeftward2(int value) { //ei method ta leftward 2 ke update korbe
-
+    isShot=true;
     //rotateCount=1;
     bool isRightMost=false;
     bool isLeftMost=false;
@@ -265,6 +281,7 @@ void updateDemonLeftward2(int value) { //ei method ta leftward 2 ke update korbe
         glutTimerFunc(3000, updateDemonLeftward2, 0);
         isRightMost=false;
         _angle1 -= 0.5f;
+        isShotLeft2=true;
         //glutTimerFunc(25, update, 0);
     }
     else if(rotateCount==1 && !isRightMost){
@@ -274,6 +291,16 @@ void updateDemonLeftward2(int value) { //ei method ta leftward 2 ke update korbe
     else if(rotateCount==1 && isRightMost){
         _angle1 += 0.5f;
         glutTimerFunc(2500, updateDemonLeftward2, 0);
+
+        //Shot hoise ki na sheita check korbe
+        if(!isShotLeft2) //shot hoy nai, agei maira felse
+        {
+            printf("safe\n");
+        }
+        else if(isShotLeft2){ //shot korte pare nai time moton, opponent maira dise
+            shotCounter++;
+            printf("shot: %d\n",shotCounter);
+        }
     }
 
 	glutPostRedisplay(); //Tell GLUT that the display has changed
@@ -342,7 +369,7 @@ void drawDemonRightward1() {
 }
 
 void updateDemonRightward1(int value) { //ei method ta rightward 1 ke update korbe
-
+    isShot=true;
     //rotateCount=1;
     bool isRightMost=false;
     bool isLeftMost=false;
@@ -372,8 +399,15 @@ void updateDemonRightward1(int value) { //ei method ta rightward 1 ke update kor
         glutTimerFunc(2500, updateDemonRightward1, 0);
         //isRightMost=false;
         _angle3 -= 0.75f;
-        //printf("Rotate=1,Right=1\n");
-        //glutTimerFunc(25, update, 0);
+        //Shot hoise ki na sheita check korbe
+        if(!isShotRight1) //shot hoy nai, agei maira felse
+        {
+            printf("safe\n");
+        }
+        else if(isShotRight1){ //shot korte pare nai time moton, opponent maira dise
+            shotCounter++;
+            printf("shot: %d\n",shotCounter);
+        }
     }
     else if(rotateCountRightward1==0 && !isRightMost){
         _angle3 += 0.75f;
@@ -383,6 +417,7 @@ void updateDemonRightward1(int value) { //ei method ta rightward 1 ke update kor
     else if(rotateCountRightward1==0 && isRightMost){
         glutTimerFunc(2500, updateDemonRightward1, 0);
         _angle3 += 0.75f;
+        isShotRight1=true;
 
     }
 
@@ -449,7 +484,7 @@ void drawDemonRightward2() {
 }
 
 void updateDemonRightward2(int value) { //ei method ta rightward 2 ke update korbe
-
+    isShot=true;
     //rotateCount=1;
     bool isRightMost=false;
     bool isLeftMost=false;
@@ -479,8 +514,16 @@ void updateDemonRightward2(int value) { //ei method ta rightward 2 ke update kor
         glutTimerFunc(2500, updateDemonRightward2, 0);
         //isRightMost=false;
         _angle4 -= 0.75f;
-        //printf("Rotate=1,Right=1\n");
-        //glutTimerFunc(25, update, 0);
+
+
+        if(!isShotRight2) //shot hoy nai, agei maira felse
+        {
+            printf("safe\n");
+        }
+        else if(isShotRight2){ //shot korte pare nai time moton, opponent maira dise
+            shotCounter++;
+            printf("shot: %d\n",shotCounter);
+        }
     }
     else if(rotateCountRightward2==0 && !isRightMost){
         _angle4 += 0.75f;
@@ -490,6 +533,8 @@ void updateDemonRightward2(int value) { //ei method ta rightward 2 ke update kor
     else if(rotateCountRightward2==0 && isRightMost){
         glutTimerFunc(2500, updateDemonRightward2, 0);
         _angle4 += 0.75f;
+
+        isShotRight2=true;
     }
 
 	glutPostRedisplay(); //Tell GLUT that the display has changed

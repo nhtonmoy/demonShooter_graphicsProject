@@ -29,10 +29,10 @@ void mouse(int button, int state, int x, int y) {
             for(x1=62;x1<=98;x1++)
             {
 
-                if(x1==mx && (my<=y2 && my>=y1))
+                if(x1==mx && (my<=y2 && my>=y1) && _angle2!=90)
                 {
                     _angle2=90;
-
+                    isShotLeft1=false;
                     score++;
                     break;
                 }
@@ -46,9 +46,10 @@ void mouse(int button, int state, int x, int y) {
             for(x1=372;x1<=408;x1++)
             {
 
-                if(x1==mx && (my<=y2 && my>=y1))
+                if(x1==mx && (my<=y2 && my>=y1) && _angle1!=90)
                 {
                     _angle1=90;
+                    isShotLeft2=false;
                     score++;
                     break;
                 }
@@ -62,9 +63,10 @@ void mouse(int button, int state, int x, int y) {
             for(x1=312;x1>=283;x1--)
             {
 
-                if(x1==mx && (my<=y2 && my>=y1))
+                if(x1==mx && (my<=y2 && my>=y1) && _angle3!=90)
                 {
                     _angle3=90;
+                    isShotRight1=false;
                     score++;
                     break;
                 }
@@ -78,9 +80,10 @@ void mouse(int button, int state, int x, int y) {
             for(x1=683;x1>=641;x1--)
             {
 
-                if(x1==mx && (my<=y2 && my>=y1))
+                if(x1==mx && (my<=y2 && my>=y1) && _angle4!=90)
                 {
                     _angle4=90;
+                    isShotRight2=false;
                     score++;
                     break;
                 }
@@ -154,11 +157,10 @@ void update(int i)
 //   glFrustum (-1.0, 1.0, -1.0, 1.0, 2.0, 20.0);
 //   glMatrixMode (GL_MODELVIEW);
 //}
-
+int called=0;
 void Environment(void)
 {
     glClear (GL_COLOR_BUFFER_BIT);
-
     glLoadIdentity ();
 
 
@@ -173,8 +175,14 @@ void Environment(void)
     drawBoats();
 
 
-
     glFlush();
+}
+void display()
+{
+
+
+    glLoadIdentity ();
+    glutDisplayFunc(Environment);
 }
 int main(int argc, char** argv)
 {
@@ -184,7 +192,7 @@ int main(int argc, char** argv)
    glutInitWindowPosition (100, 100);
 
    glutCreateWindow (argv[0]);
-   glutDisplayFunc(Environment);
+   display();
    init ();
 
    //Environment();
