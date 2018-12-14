@@ -232,17 +232,14 @@ void display()
         {
             laserRight2();
         }
-
     }
     else if(shotCounter==5)
     {
         isGameOver=true;
         gameover();
-
     }
 
     glFlush();
-
 }
 int main(int argc, char** argv)
 {
