@@ -9,6 +9,8 @@ void laserLeft1()
     glEnd();
 }
 
+
+
 void laserLeft2()
 {
     glBegin(GL_POLYGON);
