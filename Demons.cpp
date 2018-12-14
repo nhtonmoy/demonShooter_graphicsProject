@@ -216,6 +216,12 @@ void updateDemonLeftward1(int value) { //ei method ta leftward 1 ke update korbe
             else if(heatVisionLeft1){ //shot korte pare nai time moton, opponent maira dise
                 shotCounter++;
 
+                if(xLife!=-.8 && xDeath!=-.8)
+                {
+                    xLife-=.3;
+                    xDeath-=.3;
+                }
+
                 printf("shot: %d\n",shotCounter);
             }
             heatVisionLeft1=false;
@@ -351,6 +357,11 @@ void updateDemonLeftward2(int value) { //ei method ta leftward 2 ke update korbe
             }
             else if(heatVisionLeft2){ //shot korte pare nai time moton, opponent maira dise
                 shotCounter++;
+                if(xLife!=-.8 && xDeath!=-.8)
+                {
+                    xLife-=.3;
+                    xDeath-=.3;
+                }
                 printf("shot: %d\n",shotCounter);
             }
             heatVisionLeft2=false;
@@ -466,6 +477,11 @@ void updateDemonRightward1(int value) { //ei method ta rightward 1 ke update kor
             }
             else if(heatVisionRight1){ //shot korte pare nai time moton, opponent maira dise
                 shotCounter++;
+                if(xLife!=-.8 && xDeath!=-.8)
+                {
+                    xLife-=.3;
+                    xDeath-=.3;
+                }
                 printf("shot: %d\n",shotCounter);
             }
             heatVisionRight1=false;
@@ -594,6 +610,11 @@ void updateDemonRightward2(int value) { //ei method ta rightward 2 ke update kor
             }
             else if(heatVisionRight2){ //shot korte pare nai time moton, opponent maira dise
                 shotCounter++;
+                if(xLife!=-.8 && xDeath!=-.8)
+                {
+                    xLife-=.3;
+                    xDeath-=.3;
+                }
                 printf("shot: %d\n",shotCounter);
             }
             heatVisionRight2=false;

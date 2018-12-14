@@ -5,15 +5,19 @@
 #pragma comment(lib, "winmm.lib")
 #include<bits/stdc++.h>
 #include <mmsystem.h>
-#include "BoatTranslation.cpp"
-#include "Environment.cpp"
-#include "Demons.cpp"
-#include "heatVisions.cpp"
+
 
 
 void update(int i);
 
 int score;
+float xLife=.4;
+float xDeath=.4;
+
+#include "BoatTranslation.cpp"
+#include "Environment.cpp"
+#include "Demons.cpp"
+#include "heatVisions.cpp"
 
 #include "highscoring.cpp"
 
@@ -204,12 +208,14 @@ void display()
     glLoadIdentity ();
     //PlaySound(TEXT("nature.wav"), NULL, SND_SYNC|SND_FILENAME);
 
-    if(shotCounter < 5) //score<4
+    if(shotCounter < 4) //score<4
     {
         isGameOver=false;
         sky();
         paharPorbot();
         highScoreShow();
+        currentScore();
+        health();
         drawDemons();
 
         buildingLeft();
@@ -234,7 +240,7 @@ void display()
             laserRight2();
         }
     }
-    else if(shotCounter==5)
+    else if(shotCounter==4)
     {
         isGameOver=true;
         gameover();
