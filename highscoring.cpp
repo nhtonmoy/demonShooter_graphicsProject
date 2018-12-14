@@ -1,4 +1,4 @@
-int highScore;
+
 
 void highscore()
 {

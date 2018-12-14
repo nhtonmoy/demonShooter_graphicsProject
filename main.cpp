@@ -10,6 +10,8 @@
 
 void update(int i);
 
+bool isFirst=true;
+int highScore;
 int score;
 float xLife=.4;
 float xDeath=.4;
@@ -47,6 +49,17 @@ void mouse(int button, int state, int x, int y) {
         if(!isGameOver)
         {
             Beep(60,50);
+        }
+
+        if(isFirst)
+        {
+            printf("%d,%d\n",mx,my);
+            if(mx >= 385 && mx <= 640 && my >= 270 && my <= 385)
+            {
+                isFirst=false;
+                isGameOver=false;
+                glutReshapeWindow(1024,768);
+            }
         }
 //        printf("%d\n",mx);
 //        printf("%d\n",my);
@@ -195,11 +208,52 @@ void gameover()
     buildingRight();
     river();
     highscore();
+    restart();
+}
 
-    glColor3f(1.0f, 0.0f, 0.0f);
-    char buf[100] = {0};
-    sprintf(buf, "Game Over");
-    RenderBitMap(0.1,0.3, GLUT_BITMAP_TIMES_ROMAN_24, buf);
+void start()
+{
+    sky();
+    paharPorbot();
+    buildingLeft();
+    buildingRight();
+    river();
+    highscore();
+
+    startNewGame();
+}
+
+void gameStarted()
+{
+    isGameOver=false;
+    sky();
+    paharPorbot();
+    highScoreShow();
+    currentScore();
+    health();
+    drawDemons();
+
+    buildingLeft();
+    buildingRight();
+    river();
+    drawBoats();
+
+    if(heatVisionLeft1)
+    {
+        laserLeft1();
+    }
+    if(heatVisionLeft2)
+    {
+        laserLeft2();
+    }
+    if(heatVisionRight1)
+    {
+        laserRight1();
+    }
+    if(heatVisionRight2)
+    {
+        laserRight2();
+    }
 }
 
 void display()
@@ -208,61 +262,42 @@ void display()
     glLoadIdentity ();
     //PlaySound(TEXT("nature.wav"), NULL, SND_SYNC|SND_FILENAME);
 
-    if(shotCounter < 4) //score<4
+    if(isFirst)
     {
+        start();
         isGameOver=false;
-        sky();
-        paharPorbot();
-        highScoreShow();
-        currentScore();
-        health();
-        drawDemons();
-
-        buildingLeft();
-        buildingRight();
-        river();
-        drawBoats();
-
-        if(heatVisionLeft1)
-        {
-            laserLeft1();
-        }
-        if(heatVisionLeft2)
-        {
-            laserLeft2();
-        }
-        if(heatVisionRight1)
-        {
-            laserRight1();
-        }
-        if(heatVisionRight2)
-        {
-            laserRight2();
-        }
     }
-    else if(shotCounter==4)
+    else if(!isFirst)
     {
-        isGameOver=true;
-        gameover();
+        if(shotCounter < 4) //score<4
+        {
+            gameStarted();
+        }
+        else if(shotCounter==4)
+        {
+            isGameOver=true;
+            gameover();
+            glutReshapeWindow(1023,768);
+        }
     }
 
     glFlush();
 }
 int main(int argc, char** argv)
 {
-   glutInit(&argc, argv);
-   glutInitDisplayMode (GLUT_SINGLE | GLUT_RGB);
-   glutInitWindowSize (1024, 768);
-   glutInitWindowPosition (100, 100);
+    glutInit(&argc, argv);
+    glutInitDisplayMode (GLUT_SINGLE | GLUT_RGB);
+    glutInitWindowSize (1023, 767);
+    glutInitWindowPosition (100, 100);
 
-   glutCreateWindow (argv[0]);
+    glutCreateWindow (argv[0]);
 
-   glutDisplayFunc(display);
-   init ();
-   //Environment();
-   glutMouseFunc(mouse);
-   //glutReshapeFunc(reshape);
-   //glutSpecialFunc(specialKeys);
-   glutMainLoop();
-   return 0;
+    glutDisplayFunc(display);
+    init ();
+    //Environment();
+    glutMouseFunc(mouse);
+    //glutReshapeFunc(reshape);
+    //glutSpecialFunc(specialKeys);
+    glutMainLoop();
+    return 0;
 }
