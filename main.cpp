@@ -2,7 +2,7 @@
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include <GL/glut.h>
-//#pragma comment(lib, "winmm.lib")
+#pragma comment(lib, "winmm.lib")
 #include<bits/stdc++.h>
 #include <mmsystem.h>
 #include "BoatTranslation.cpp"
@@ -10,9 +10,13 @@
 #include "Demons.cpp"
 #include "heatVisions.cpp"
 
+
 void update(int i);
 
 int score;
+
+#include "highscoring.cpp"
+
 
 
 void mouse(int button, int state, int x, int y);
@@ -185,6 +189,7 @@ void gameover()
     buildingLeft();
     buildingRight();
     river();
+    highscore();
 
 
 
@@ -231,7 +236,7 @@ void display()
         }
 
     }
-    else
+    else if(shotCounter==5)
     {
         isGameOver=true;
         gameover();
