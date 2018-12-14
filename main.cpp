@@ -135,13 +135,55 @@ void mouse(int button, int state, int x, int y) {
 
             }
         }
-        if(!isGameOver)
+        if(isGameOver)
         {
-            printf("Score: %d\n",score);
-        }
-        else
-        {
-            printf("Game Over!\n");
+            if(mx >= 385 && mx <= 640 && my >= 270 && my <= 385)
+            {
+                isFirst=false;
+                isGameOver=false;
+                glutReshapeWindow(1024,768);
+
+                _angle1 = 90.0f;
+                _angle2 = 90.0f;
+                _angle3 = 90.0f;
+                _angle4 = 90.0f;
+
+                xLife=.4;
+                xDeath=.4;
+
+                firstDemonLeftMost=false;
+                secondDemonLeftMost=false;
+                firstDemonRightMost=false;
+                secondDemonRightMost=false;
+
+
+                isShotLeft1=false;
+                isShotLeft2=false;
+                isShotRight1=false;
+                isShotRight2=false;
+
+                heatVisionLeft1=false;
+                heatVisionRight1=false;
+                heatVisionLeft2=false;
+                heatVisionRight2=false;
+
+                shotCounter=0;
+                score=0;
+
+                isInitiatedLeft1=false;
+                isInitiatedLeft2=false;
+                isInitiatedRight1=false;
+                isInitiatedRight2=false;
+
+
+                rotateCount=0;
+                rotateCountLeftward1=0;
+                rotateCountRightward1=0;
+                rotateCountRightward2=0;
+
+
+                isInitiatedBoat=false;
+            }
         }
 
 
@@ -273,6 +315,7 @@ void display()
     {
         if(shotCounter < 4) //score<4
         {
+            isGameOver=false;
             gameStarted();
         }
         else if(shotCounter==4)
