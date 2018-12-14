@@ -17,8 +17,6 @@ int score;
 
 #include "highscoring.cpp"
 
-
-
 void mouse(int button, int state, int x, int y);
 
 void RenderBitMap(float x, float y, void *font, char *string)
