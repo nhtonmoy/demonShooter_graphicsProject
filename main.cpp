@@ -191,8 +191,6 @@ void gameover()
     river();
     highscore();
 
-
-
     glColor3f(1.0f, 0.0f, 0.0f);
     char buf[100] = {0};
     sprintf(buf, "Game Over");
