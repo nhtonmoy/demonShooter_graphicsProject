@@ -4,7 +4,7 @@ float camPosX = 0.0f;
 float camPosZ = 5.0f;
 
 void update(int i);
-void updateBoats(int value);
+void updateBoats();
 
 float transFactor = 0.0f;
 float getXBoats(int val)
@@ -82,13 +82,16 @@ void drawBoats()
 
     glutSwapBuffers();
     //Sleep(500);
-    glutTimerFunc(70,updateBoats,0);
+//    glutTimerFunc(70,updateBoats,0);
+
+    updateBoats();
+
 }
 
-void updateBoats(int value)
+void updateBoats()
 {
 
-    transFactor+=0.0009f;
+    transFactor+=0.0001f;
     if(transFactor>getXBoats(512*2))
        transFactor = -1 * getXBoats(512 * 2);
     glutPostRedisplay();
