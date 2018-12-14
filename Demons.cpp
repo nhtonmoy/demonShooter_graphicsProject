@@ -207,7 +207,7 @@ void updateDemonLeftward1(int value) { //ei method ta leftward 1 ke update korbe
         else if(rotateCountLeftward1==1 && isRightMost){
 
             _angle2 += 0.5f;
-            glutTimerFunc(4500, updateDemonLeftward1, 0);
+            glutTimerFunc(2200, updateDemonLeftward1, 0);
             //Shot hoise ki na sheita check korbe
             if(!heatVisionLeft1) //shot hoy nai, agei maira felse
             {
@@ -342,7 +342,7 @@ void updateDemonLeftward2(int value) { //ei method ta leftward 2 ke update korbe
         }
         else if(rotateCount==1 && isRightMost){
             _angle1 += 0.75f;
-            glutTimerFunc(5000, updateDemonLeftward2, 0);
+            glutTimerFunc(2400, updateDemonLeftward2, 0);
 
             //Shot hoise ki na sheita check korbe
             if(!heatVisionLeft2) //shot hoy nai, agei maira felse
@@ -456,7 +456,7 @@ void updateDemonRightward1(int value) { //ei method ta rightward 1 ke update kor
         }
         else if(rotateCountRightward1==1 && isLeftMost)
         {
-            glutTimerFunc(4000, updateDemonRightward1, 0);
+            glutTimerFunc(2800, updateDemonRightward1, 0);
             //isRightMost=false;
             _angle3 -= 0.75f;
             //Shot hoise ki na sheita check korbe
@@ -583,7 +583,7 @@ void updateDemonRightward2(int value) { //ei method ta rightward 2 ke update kor
         }
         else if(rotateCountRightward2==1 && isLeftMost)
         {
-            glutTimerFunc(3500, updateDemonRightward2, 0);
+            glutTimerFunc(2100, updateDemonRightward2, 0);
             //isRightMost=false;
             _angle4 -= 0.75f;
 

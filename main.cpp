@@ -139,38 +139,6 @@ void init(void)
 
 }
 
-void specialKeys(int key, int x, int y) {
-    switch (key) {
-      case GLUT_KEY_UP:
-          camPosY+=0.5f;
-          printf("a");
-          update(0);
-          break;
-      case GLUT_KEY_DOWN:
-          camPosY-=0.5f;
-          update(0);
-          break;
-    case GLUT_KEY_RIGHT:
-          camPosX+=0.5f;
-          printf("a");
-          update(0);
-          break;
-    case GLUT_KEY_LEFT:
-          camPosX-=0.5f;
-          update(0);
-          break;
-    case GLUT_KEY_PAGE_UP:
-          camPosZ+=0.5f;
-          update(0);
-          break;
-    case GLUT_KEY_PAGE_DOWN:
-          camPosZ-=0.5f;
-          update(0);
-          break;
-
-
-}
-}
 void update(int i)
 {
     //gluLookAt(0,camPosy,0,0.0,0.0,0.0,0.0,0.0,0.0);
@@ -232,7 +200,7 @@ void display()
     glLoadIdentity ();
     //PlaySound(TEXT("nature.wav"), NULL, SND_SYNC|SND_FILENAME);
 
-    if(1) //score<4
+    if(shotCounter < 5) //score<4
     {
         isGameOver=false;
         sky();
@@ -263,12 +231,12 @@ void display()
         }
 
     }
-//    else
-//    {
-//        isGameOver=true;
-//        gameover();
-//
-//    }
+    else
+    {
+        isGameOver=true;
+        gameover();
+
+    }
 
     glFlush();
 
