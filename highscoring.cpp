@@ -1,6 +1,8 @@
+int highScore;
+
 void highscore()
 {
-    int highScore;
+
 
     FILE *in_file  = fopen("score.txt", "r");
     fscanf(in_file, "%d", &highScore);
@@ -15,6 +17,7 @@ void highscore()
         fprintf(file, "%d", score);
         fclose(file);
         printf("\nNew Highscore = %d\n",score);
+        highScore=score;
     }
     else
     {

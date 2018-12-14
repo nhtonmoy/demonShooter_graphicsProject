@@ -17,6 +17,7 @@ int score;
 
 #include "highscoring.cpp"
 
+
 void mouse(int button, int state, int x, int y);
 
 void RenderBitMap(float x, float y, void *font, char *string)
@@ -28,6 +29,8 @@ void RenderBitMap(float x, float y, void *font, char *string)
         glutBitmapCharacter(font, *c);
     }
 }
+
+#include "defaultGamePageDesign.cpp"
 
 
 void mouse(int button, int state, int x, int y) {
@@ -206,7 +209,7 @@ void display()
         isGameOver=false;
         sky();
         paharPorbot();
-
+        highScoreShow();
         drawDemons();
 
         buildingLeft();
