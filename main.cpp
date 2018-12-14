@@ -21,7 +21,7 @@ float xDeath=.4;
 #include "Demons.cpp"
 #include "heatVisions.cpp"
 
-#include "highscoring.cpp"
+
 
 
 void mouse(int button, int state, int x, int y);
@@ -35,7 +35,7 @@ void RenderBitMap(float x, float y, void *font, char *string)
         glutBitmapCharacter(font, *c);
     }
 }
-
+#include "highscoring.cpp"
 #include "defaultGamePageDesign.cpp"
 
 
@@ -209,6 +209,7 @@ void gameover()
     river();
     highscore();
     restart();
+    highScoreShow();
 }
 
 void start()
@@ -221,6 +222,7 @@ void start()
     highscore();
 
     startNewGame();
+    highScoreShow();
 }
 
 void gameStarted()

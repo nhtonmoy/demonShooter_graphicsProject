@@ -21,7 +21,7 @@ void health()
     glColor3f(0.0f, 0.0f, 0.0f);
     char buf[100] = {0};
     sprintf(buf, "HEALTH");
-    RenderBitMap(-1.0,0.94, GLUT_BITMAP_HELVETICA_18, buf);
+    RenderBitMap(-0.95,0.94, GLUT_BITMAP_HELVETICA_18, buf);
 
     glBegin(GL_POLYGON);
         glColor3f(0.0,1.0,0.0);
@@ -89,12 +89,15 @@ void restart()
     glColor3f(.0f, .0f, .0f);
     sprintf(buf2, "YOUR SCORE: %d",score);
     RenderBitMap(-.15,0.35, GLUT_BITMAP_HELVETICA_18, buf2);
-
-    if(score>highScore)
+    if(newHigh)
     {
         glColor3f(1.0f, 0.0f, 0.0f);
         char buf3[100] = {0};
         sprintf(buf3, "NEW HIGH SCORE!!");
-        RenderBitMap(-0.1,0.5, GLUT_BITMAP_TIMES_ROMAN_24, buf3);
+        printf("\nNew High Score\n");
+        RenderBitMap(-0.22,0.5, GLUT_BITMAP_TIMES_ROMAN_24, buf3);
+
+        printf("new high");
+
     }
 }

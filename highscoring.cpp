@@ -1,9 +1,9 @@
-
+bool newHigh=false;
 
 void highscore()
 {
 
-
+    //newHigh=false;
     FILE *in_file  = fopen("score.txt", "r");
     fscanf(in_file, "%d", &highScore);
     fclose(in_file);
@@ -18,9 +18,11 @@ void highscore()
         fclose(file);
         printf("\nNew Highscore = %d\n",score);
         highScore=score;
+        newHigh=true;
     }
     else
     {
+        //newHigh=false;
         printf("\nHighscore = %d\n",highScore);
     }
 }
