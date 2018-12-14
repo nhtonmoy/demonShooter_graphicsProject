@@ -6,8 +6,6 @@ void highscore()
     fscanf(in_file, "%d", &highScore);
     fclose(in_file);
     /*File Read ends from here*/
-
-
     /*File Write Starts from here*/
 
     if(score>highScore)
