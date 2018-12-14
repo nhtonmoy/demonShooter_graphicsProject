@@ -545,7 +545,7 @@ void updateDemonRightward2(int value) { //ei method ta rightward 2 ke update kor
 void drawDemons(void)
     {
         drawDemonLeftward1();
-        //drawDemonLeftward2();
-        //drawDemonRightward1();
-        //drawDemonRightward2();
+        drawDemonLeftward2();
+        drawDemonRightward1();
+        drawDemonRightward2();
     }
