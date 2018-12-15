@@ -1,4 +1,4 @@
-bool isGameOver=true;
+
 
 bool firstDemonLeftMost=false;
 bool secondDemonLeftMost=false;
@@ -17,8 +17,12 @@ bool heatVisionLeft2=false;
 bool heatVisionRight2=false;
 
 bool isShot=false;
-int shotCounter=0;
 
+
+float _angle1 = 90.0f; //Leftward 2 er angle
+float _angle2 = 90.0f; //Leftward 1 er angle
+float _angle3 = 90.0f; //Rightward 1 er angle
+float _angle4 = 90.0f; //Rightward 2 er angle
 
 void updateDemonLeftward1(int value);
 void updateDemonLeftward2(int value);
@@ -70,10 +74,7 @@ void handleResize(int w, int h) {
 	gluPerspective(45.0, (double)w / (double)h, 1.0, 200.0);
 }
 
-float _angle1 = 90.0f; //Leftward 2 er angle
-float _angle2 = 90.0f; //Leftward 1 er angle
-float _angle3 = 90.0f; //Rightward 1 er angle
-float _angle4 = 90.0f; //Rightward 2 er angle
+
 //float _move = 0.0f;
 
 void drawDemonLeftward1() {
@@ -179,20 +180,24 @@ void updateDemonLeftward1(int value) { //ei method ta leftward 1 ke update korbe
             isShotLeft1=true;
 
 
-            //glutTimerFunc(1000,updateDemonLeftward1, 0);
 
-            //printf("%d")
+            //glutTimerFunc(1000,updateDemonLeftward1, 0);
             //glutTimerFunc(25, update, 0);
         }
         else if(rotateCountLeftward1==0 && isLeftMost && isShotLeft1)
         {
-
             glutTimerFunc(500, updateDemonLeftward1, 0);
             isRightMost=false;
 
             //Sleep(1000);
             _angle2 -= 0.5f;
             heatVisionLeft1=true;
+
+            Sound(4);
+            Sleep(200);
+            Sound(2);
+
+
 
             //glutTimerFunc(1000,updateDemonLeftward1, 0);
 
@@ -218,17 +223,18 @@ void updateDemonLeftward1(int value) { //ei method ta leftward 1 ke update korbe
 
                 if(xLife!=-.8 && xDeath!=-.8)
                 {
-                    xLife-=.3;
-                    xDeath-=.3;
+                    xLife-=xDef;
+                    xDeath-=xDef;
                 }
 
                 printf("shot: %d\n",shotCounter);
             }
             heatVisionLeft1=false;
         }
+        glutPostRedisplay(); //Tell GLUT that the display has changed
     }
 
-	glutPostRedisplay(); //Tell GLUT that the display has changed
+
 }
 //
 //
@@ -340,6 +346,11 @@ void updateDemonLeftward2(int value) { //ei method ta leftward 2 ke update korbe
             isRightMost=false;
             _angle1 -= 0.5f;
             heatVisionLeft2=true;
+
+            Sound(4);
+            Sleep(200);
+            Sound(2);
+
             //glutTimerFunc(25, update, 0);
         }
         else if(rotateCount==1 && !isRightMost){
@@ -359,16 +370,17 @@ void updateDemonLeftward2(int value) { //ei method ta leftward 2 ke update korbe
                 shotCounter++;
                 if(xLife!=-.8 && xDeath!=-.8)
                 {
-                    xLife-=.3;
-                    xDeath-=.3;
+                    xLife-=xDef;
+                    xDeath-=xDef;
                 }
                 printf("shot: %d\n",shotCounter);
             }
             heatVisionLeft2=false;
         }
+        glutPostRedisplay(); //Tell GLUT that the display has changed
     }
 
-	glutPostRedisplay(); //Tell GLUT that the display has changed
+
 }
 //
 //
@@ -479,8 +491,8 @@ void updateDemonRightward1(int value) { //ei method ta rightward 1 ke update kor
                 shotCounter++;
                 if(xLife!=-.8 && xDeath!=-.8)
                 {
-                    xLife-=.3;
-                    xDeath-=.3;
+                    xLife-=xDef;
+                    xDeath-=xDef;
                 }
                 printf("shot: %d\n",shotCounter);
             }
@@ -500,10 +512,16 @@ void updateDemonRightward1(int value) { //ei method ta rightward 1 ke update kor
             glutTimerFunc(500, updateDemonRightward1, 0);
             _angle3 += 0.75f;
             heatVisionRight1=true;
+
+            Sound(4);
+            Sleep(200);
+            Sound(2);
+
         }
+        glutPostRedisplay(); //Tell GLUT that the display has changed
     }
 
-	glutPostRedisplay(); //Tell GLUT that the display has changed
+
 }
 
 
@@ -612,8 +630,8 @@ void updateDemonRightward2(int value) { //ei method ta rightward 2 ke update kor
                 shotCounter++;
                 if(xLife!=-.8 && xDeath!=-.8)
                 {
-                    xLife-=.3;
-                    xDeath-=.3;
+                    xLife-=xDef;
+                    xDeath-=xDef;
                 }
                 printf("shot: %d\n",shotCounter);
             }
@@ -635,10 +653,16 @@ void updateDemonRightward2(int value) { //ei method ta rightward 2 ke update kor
             _angle4 += 0.75f;
 
             heatVisionRight2=true;
+
+            Sound(4);
+            Sleep(200);
+            Sound(2);
+
         }
+        glutPostRedisplay(); //Tell GLUT that the display has changed
     }
 
-	glutPostRedisplay(); //Tell GLUT that the display has changed
+
 }
 
 

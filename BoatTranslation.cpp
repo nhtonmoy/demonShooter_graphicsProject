@@ -22,11 +22,14 @@ float getYBoats(int val)
 bool isInitiatedBoat=false;
 void boatInitialPosition()
 {
-    transFactor=getXBoats(-1024);
+    transFactor=getXBoats(-600);
     isInitiatedBoat=true;
 }
 void drawBoats()
 {
+    if(!isInitiatedBoat){
+        boatInitialPosition();
+    }
 
     glPushMatrix();
         glTranslatef(transFactor,0,0);
@@ -76,9 +79,7 @@ void drawBoats()
         glEnd();
 
     glPopMatrix();
-    if(!isInitiatedBoat){
-        boatInitialPosition();
-    }
+
 
     glutSwapBuffers();
     //Sleep(500);
@@ -91,10 +92,13 @@ void drawBoats()
 void updateBoats()
 {
 
-    transFactor+=0.0001f;
-    if(transFactor>getXBoats(512*2))
-       transFactor = -1 * getXBoats(512 * 2);
-    glutPostRedisplay();
+    if(!isGameOver)
+    {
+        transFactor+=0.0002f;
+        if(transFactor>getXBoats(450*2))
+           transFactor = -1 * getXBoats(256 * 2);
+        glutPostRedisplay();
+    }
     //glutTimerFunc(20,update,0);
 }
 

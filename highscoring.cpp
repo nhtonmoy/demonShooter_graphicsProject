@@ -20,9 +20,4 @@ void highscore()
         highScore=score;
         newHigh=true;
     }
-    else
-    {
-        //newHigh=false;
-        printf("\nHighscore = %d\n",highScore);
-    }
 }

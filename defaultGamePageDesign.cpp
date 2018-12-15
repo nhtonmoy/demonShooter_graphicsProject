@@ -2,6 +2,7 @@
 
 void highScoreShow()
 {
+    if(score>highScore) highScore=score;
     glColor3f(0.0f, 0.0f, 0.0f);
     char buf[100] = {0};
     sprintf(buf, "HIGHSCORE: %d", highScore);
