@@ -1,17 +1,106 @@
+#include <windows.h>
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include <GL/glut.h>
-#include <Windows.h>
+#pragma comment(lib, "winmm.lib")
 #include<bits/stdc++.h>
-#include "BoatTranslation.cpp"
+#include <mmsystem.h>
+
+bool isGameOver=true;
+void update(int i);
+int restartable=0;
+
+bool isFirst=true;
+int highScore;
+int score;
+int shotCounter=0;
+float xLife=.4;
+float xDeath=.4;
+float xDef=1.2/4;
+
+void Sound(int x)
+{
+    if(x==1)
+    {
+        PlaySound(TEXT("Gun+Shot2.wav"), NULL, SND_FILENAME|SND_ASYNC);
+    }
+    else if(x==2)
+    {
+        //PlaySound(TEXT("nature.wav"), NULL, SND_FILENAME|SND_LOOP|SND_ASYNC);
+        PlaySound(TEXT("Fishing Boat And Waves 02 _ Sound Effect (192kbit_AAC) 00_00_00-00_00_10.wav"), NULL, SND_FILENAME|SND_LOOP|SND_ASYNC);
+    }
+    else if(x==3)
+    {
+        PlaySound(TEXT("Epic Battle Music #1 _ No Copyright Sound Effect (192kbit_AAC).wav"), NULL, SND_FILENAME|SND_LOOP|SND_ASYNC);
+    }
+    else if(x==4)
+    {
+        PlaySound(TEXT("heatVision.wav"), NULL, SND_FILENAME|SND_ASYNC);
+    }
+
+}
+
+
 #include "Environment.cpp"
 #include "Demons.cpp"
+#include "heatVisions.cpp"
+#include "BoatTranslation.cpp"
 
-void update(int i);
+void initiateRestart()
+{
+    _angle1 = 90.0f;
+    _angle2 = 90.0f;
+    _angle3 = 90.0f;
+    _angle4 = 90.0f;
 
-int score;
+    xLife=.4;
+    xDeath=.4;
+
+    firstDemonLeftMost=false;
+    secondDemonLeftMost=false;
+    firstDemonRightMost=false;
+    secondDemonRightMost=false;
+
+
+    isShotLeft1=false;
+    isShotLeft2=false;
+    isShotRight1=false;
+    isShotRight2=false;
+
+    heatVisionLeft1=false;
+    heatVisionRight1=false;
+    heatVisionLeft2=false;
+    heatVisionRight2=false;
+
+    isInitiatedLeft1=false;
+    isInitiatedLeft2=false;
+    isInitiatedRight1=false;
+    isInitiatedRight2=false;
+
+
+    rotateCount=0;
+    rotateCountLeftward1=0;
+    rotateCountRightward1=0;
+    rotateCountRightward2=0;
+
+
+    isInitiatedBoat=false;
+}
 
 void mouse(int button, int state, int x, int y);
+
+void RenderBitMap(float x, float y, void *font, char *string)
+{
+    char *c;
+    glRasterPos2f(x,y);
+    for(c=string; *c != '\0'; c++)
+    {
+        glutBitmapCharacter(font, *c);
+    }
+}
+#include "highscoring.cpp"
+#include "defaultGamePageDesign.cpp"
+
 
 void mouse(int button, int state, int x, int y) {
     glutSetCursor(GLUT_CURSOR_CROSSHAIR);
@@ -20,6 +109,24 @@ void mouse(int button, int state, int x, int y) {
     int my = y;
 
     if(button==GLUT_LEFT_BUTTON && state==GLUT_DOWN){
+        if(!isGameOver && !isFirst)
+        {
+            Sound(1);
+            Sleep(200);
+            Sound(2);
+        }
+
+        if(isFirst)
+        {
+            printf("%d,%d\n",mx,my);
+            if(mx >= 385 && mx <= 640 && my >= 270 && my <= 385)
+            {
+                isFirst=false;
+                isGameOver=false;
+                glutReshapeWindow(1024,768);
+                Sound(2);
+            }
+        }
 //        printf("%d\n",mx);
 //        printf("%d\n",my);
 
@@ -29,7 +136,7 @@ void mouse(int button, int state, int x, int y) {
             for(x1=62;x1<=98;x1++)
             {
 
-                if(x1==mx && (my<=y2 && my>=y1) && _angle2!=90)
+                if(x1==mx && (my<=y2 && my>=y1) && _angle2!=90 && !isGameOver && !heatVisionLeft1)
                 {
                     _angle2=90;
                     isShotLeft1=false;
@@ -46,7 +153,7 @@ void mouse(int button, int state, int x, int y) {
             for(x1=372;x1<=408;x1++)
             {
 
-                if(x1==mx && (my<=y2 && my>=y1) && _angle1!=90)
+                if(x1==mx && (my<=y2 && my>=y1) && _angle1!=90 && !isGameOver && !heatVisionLeft2)
                 {
                     _angle1=90;
                     isShotLeft2=false;
@@ -63,7 +170,7 @@ void mouse(int button, int state, int x, int y) {
             for(x1=312;x1>=283;x1--)
             {
 
-                if(x1==mx && (my<=y2 && my>=y1) && _angle3!=90)
+                if(x1==mx && (my<=y2 && my>=y1) && _angle3!=90 && !isGameOver && !heatVisionRight1)
                 {
                     _angle3=90;
                     isShotRight1=false;
@@ -80,7 +187,7 @@ void mouse(int button, int state, int x, int y) {
             for(x1=683;x1>=641;x1--)
             {
 
-                if(x1==mx && (my<=y2 && my>=y1) && _angle4!=90)
+                if(x1==mx && (my<=y2 && my>=y1) && _angle4!=90 && !isGameOver)
                 {
                     _angle4=90;
                     isShotRight2=false;
@@ -90,7 +197,60 @@ void mouse(int button, int state, int x, int y) {
 
             }
         }
-        printf("Score: %d\n",score);
+        if(isGameOver)
+        {
+
+            if(mx >= 385 && mx <= 640 && my >= 270 && my <= 385)
+            {
+
+                isFirst=false;
+                isGameOver=false;
+                glutReshapeWindow(1024,768);
+
+                _angle1 = 90.0f;
+                _angle2 = 90.0f;
+                _angle3 = 90.0f;
+                _angle4 = 90.0f;
+
+                xLife=.4;
+                xDeath=.4;
+
+                firstDemonLeftMost=false;
+                secondDemonLeftMost=false;
+                firstDemonRightMost=false;
+                secondDemonRightMost=false;
+
+
+                isShotLeft1=false;
+                isShotLeft2=false;
+                isShotRight1=false;
+                isShotRight2=false;
+
+                heatVisionLeft1=false;
+                heatVisionRight1=false;
+                heatVisionLeft2=false;
+                heatVisionRight2=false;
+
+                shotCounter=0;
+                score=0;
+
+                isInitiatedLeft1=false;
+                isInitiatedLeft2=false;
+                isInitiatedRight1=false;
+                isInitiatedRight2=false;
+
+
+                rotateCount=0;
+                rotateCountLeftward1=0;
+                rotateCountRightward1=0;
+                rotateCountRightward2=0;
+
+
+                isInitiatedBoat=false;
+                Sound(2);
+
+            }
+        }
 
 
     }
@@ -105,61 +265,21 @@ void init(void)
 {
     //glClearColor (1.0, 01.0, 01.0, 0.0);
     glClearColor(0.2, 1.0, 0.3, 0.0);
-    glShadeModel (GL_FLAT);
+    //glShadeModel (GL_FLAT);
 
 }
 
-void specialKeys(int key, int x, int y) {
-    switch (key) {
-      case GLUT_KEY_UP:
-          camPosY+=0.5f;
-          printf("a");
-          update(0);
-          break;
-      case GLUT_KEY_DOWN:
-          camPosY-=0.5f;
-          update(0);
-          break;
-    case GLUT_KEY_RIGHT:
-          camPosX+=0.5f;
-          printf("a");
-          update(0);
-          break;
-    case GLUT_KEY_LEFT:
-          camPosX-=0.5f;
-          update(0);
-          break;
-    case GLUT_KEY_PAGE_UP:
-          camPosZ+=0.5f;
-          update(0);
-          break;
-    case GLUT_KEY_PAGE_DOWN:
-          camPosZ-=0.5f;
-          update(0);
-          break;
 
 
-}
-}
 void update(int i)
 {
     //gluLookAt(0,camPosy,0,0.0,0.0,0.0,0.0,0.0,0.0);
     glutPostRedisplay();
 }
-
-//
-//
-//void reshape (int w, int h)
-//{
-//   glViewport (0, 0, (GLsizei) w, (GLsizei) h);
-//   glMatrixMode (GL_PROJECTION);
-//   glLoadIdentity ();
-//   glFrustum (-1.0, 1.0, -1.0, 1.0, 2.0, 20.0);
-//   glMatrixMode (GL_MODELVIEW);
-//}
 int called=0;
 void Environment(void)
 {
+
     glClear (GL_COLOR_BUFFER_BIT);
     glLoadIdentity ();
 
@@ -174,31 +294,142 @@ void Environment(void)
     river();
     drawBoats();
 
+//    Beep(25,25);
+    //PlaySound(TEXT("nature.wav"), NULL, SND_SYNC|SND_FILENAME);
+    glFlush();
+}
+void test()
+{
+    glClear (GL_COLOR_BUFFER_BIT);
+    glLoadIdentity ();
+
+
+    sky();
+    paharPorbot();
+    glFlush();
+
+}
+
+void gameover()
+{
+    sky();
+    paharPorbot();
+    buildingLeft();
+    buildingRight();
+    river();
+    highscore();
+    restart();
+    highScoreShow();
+}
+
+void start()
+{
+    sky();
+    paharPorbot();
+    buildingLeft();
+    buildingRight();
+    river();
+    highscore();
+
+    startNewGame();
+    highScoreShow();
+
+}
+
+void gameStarted()
+{
+
+    isGameOver=false;
+    sky();
+    paharPorbot();
+    highScoreShow();
+    currentScore();
+    health();
+    drawDemons();
+
+    buildingLeft();
+    buildingRight();
+    river();
+    drawBoats();
+
+    if(heatVisionLeft1)
+    {
+        laserLeft1();
+
+    }
+    if(heatVisionLeft2)
+    {
+        laserLeft2();
+    }
+    if(heatVisionRight1)
+    {
+        laserRight1();
+    }
+    if(heatVisionRight2)
+    {
+        laserRight2();
+    }
+}
+
+void display()
+{
+    glClear (GL_COLOR_BUFFER_BIT);
+    glLoadIdentity ();
+    //PlaySound(TEXT("nature.wav"), NULL, SND_SYNC|SND_FILENAME);
+
+    if(isFirst)
+    {
+        start();
+        isGameOver=false;
+
+        Sound(3);
+
+    }
+    else if(!isFirst)
+    {
+        if(shotCounter < 4) //score<4
+        {
+            glutReshapeWindow(1024,768);
+            isGameOver=false;
+            gameStarted();
+
+        }
+        else if(shotCounter>=4)
+        {
+            initiateRestart();
+            isGameOver=true;
+            glutReshapeWindow(1023,768);
+            //printf("%d\n",restartable++);
+            printf("%d\n",shotCounter);
+
+            gameover();
+
+            Sound(3);
+        }
+    }
 
     glFlush();
 }
-void display()
-{
 
 
-    glLoadIdentity ();
-    glutDisplayFunc(Environment);
-}
 int main(int argc, char** argv)
 {
-   glutInit(&argc, argv);
-   glutInitDisplayMode (GLUT_SINGLE | GLUT_RGB);
-   glutInitWindowSize (1024, 768);
-   glutInitWindowPosition (100, 100);
 
-   glutCreateWindow (argv[0]);
-   display();
-   init ();
+    glutInit(&argc, argv);
+    glutInitDisplayMode (GLUT_SINGLE | GLUT_RGB);
+    glutInitWindowSize (1023, 767);
+    glutInitWindowPosition (100, 100);
 
-   //Environment();
-   glutMouseFunc(mouse);
-   //glutReshapeFunc(reshape);
-   //glutSpecialFunc(specialKeys);
-   glutMainLoop();
-   return 0;
+    glutCreateWindow (argv[0]);
+
+    glutDisplayFunc(display);
+    init ();
+
+
+    //Environment();
+    glutMouseFunc(mouse);
+    //glutReshapeFunc(reshape);
+    //glutSpecialFunc(specialKeys);
+    glutMainLoop();
+    return 0;
 }

@@ -4,7 +4,7 @@ float camPosX = 0.0f;
 float camPosZ = 5.0f;
 
 void update(int i);
-void updateBoats(int value);
+void updateBoats();
 
 float transFactor = 0.0f;
 float getXBoats(int val)
@@ -22,11 +22,14 @@ float getYBoats(int val)
 bool isInitiatedBoat=false;
 void boatInitialPosition()
 {
-    transFactor=getXBoats(-1024);
+    transFactor=getXBoats(-600);
     isInitiatedBoat=true;
 }
 void drawBoats()
 {
+    if(!isInitiatedBoat){
+        boatInitialPosition();
+    }
 
     glPushMatrix();
         glTranslatef(transFactor,0,0);
@@ -76,22 +79,26 @@ void drawBoats()
         glEnd();
 
     glPopMatrix();
-    if(!isInitiatedBoat){
-        boatInitialPosition();
-    }
+
 
     glutSwapBuffers();
     //Sleep(500);
-    glutTimerFunc(70,updateBoats,0);
+//    glutTimerFunc(70,updateBoats,0);
+
+    updateBoats();
+
 }
 
-void updateBoats(int value)
+void updateBoats()
 {
 
-    transFactor+=0.0009f;
-    if(transFactor>getXBoats(512*2))
-       transFactor = -1 * getXBoats(512 * 2);
-    glutPostRedisplay();
+    if(!isGameOver)
+    {
+        transFactor+=0.0002f;
+        if(transFactor>getXBoats(450*2))
+           transFactor = -1 * getXBoats(256 * 2);
+        glutPostRedisplay();
+    }
     //glutTimerFunc(20,update,0);
 }
 
