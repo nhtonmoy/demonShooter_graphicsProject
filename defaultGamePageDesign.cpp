@@ -1,4 +1,5 @@
 
+
 void highScoreShow()
 {
     if(score>highScore)

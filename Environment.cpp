@@ -1,3 +1,4 @@
+
 void leftBuildingErJanala(float x,float y)
 {
     glBegin(GL_QUADS);

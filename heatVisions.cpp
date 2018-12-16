@@ -1,3 +1,4 @@
+
 void laserLeft1()
 {
     glBegin(GL_POLYGON);

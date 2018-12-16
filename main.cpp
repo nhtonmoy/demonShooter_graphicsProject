@@ -6,6 +6,7 @@
 #include<bits/stdc++.h>
 #include <mmsystem.h>
 
+
 bool isNew=false;
 bool isGameOver=true;
 void update(int i);

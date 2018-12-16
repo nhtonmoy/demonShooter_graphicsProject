@@ -1,3 +1,4 @@
+
 bool firstDemonLeftMost=false;
 bool secondDemonLeftMost=false;
 bool firstDemonRightMost=false;

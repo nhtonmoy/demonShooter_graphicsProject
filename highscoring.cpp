@@ -1,3 +1,4 @@
+
 bool newHigh=false;
 
 void highscore()
