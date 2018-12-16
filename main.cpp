@@ -18,7 +18,7 @@ int score;
 int shotCounter=0;
 float xLife=.4;
 float xDeath=.4;
-float xDef=1.2/5;
+float xDef=1.2/4;
 
 void Sound(int x)
 {
@@ -256,9 +256,6 @@ void mouse(int button, int state, int x, int y) {
             }
         }
     }
-
-
-
 }
 
 
@@ -266,7 +263,7 @@ void mouse(int button, int state, int x, int y) {
 void init(void)
 {
     glClearColor(0.2, 1.0, 0.3, 0.0);
-
+    gluOrtho2D(512,384,-512,-384);
 }
 
 
@@ -353,13 +350,13 @@ void display()
     }
     else if(!isFirst)
     {
-        if(shotCounter < 5) //score<4
+        if(shotCounter < 4) //score<4
         {
             isGameOver=false;
             gameStarted();
 
         }
-        else if(shotCounter>=5)
+        else if(shotCounter>=4)
         {
             initiateRestart();
             isGameOver=true;
