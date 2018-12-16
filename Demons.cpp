@@ -1,10 +1,9 @@
-
-
 bool firstDemonLeftMost=false;
 bool secondDemonLeftMost=false;
 bool firstDemonRightMost=false;
 bool secondDemonRightMost=false;
 
+bool isShot=false;
 
 bool isShotLeft1=false;
 bool isShotLeft2=false;
@@ -15,8 +14,6 @@ bool heatVisionLeft1=false;
 bool heatVisionRight1=false;
 bool heatVisionLeft2=false;
 bool heatVisionRight2=false;
-
-bool isShot=false;
 
 
 float _angle1 = 90.0f; //Leftward 2 er angle
@@ -62,20 +59,6 @@ int rotateCount=0;
 int rotateCountLeftward1=0;
 int rotateCountRightward1=0;
 int rotateCountRightward2=0;
-//Initializes 3D rendering
-void initRendering() {
-	glEnable(GL_DEPTH_TEST);
-}
-//Called when the window is resized
-void handleResize(int w, int h) {
-	glViewport(0, 0, w, h);
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-	gluPerspective(45.0, (double)w / (double)h, 1.0, 200.0);
-}
-
-
-//float _move = 0.0f;
 
 void drawDemonLeftward1() {
 
@@ -83,7 +66,6 @@ void drawDemonLeftward1() {
     {
         initiateLeft1();
     }
-    //glutTimerFunc(50, updateDemons, 0);
 
 	glPushMatrix();
 	glRotatef(_angle2, 0.0, 0.0, 1.0);
@@ -133,13 +115,10 @@ void drawDemonLeftward1() {
     glPopMatrix();
 
 	glutSwapBuffers();
-	//glutTimerFunc(25, updateDemons, 0);
 }
 
 void updateDemonLeftward1(int value) { //ei method ta leftward 1 ke update korbe
 
-    //isShotLeft1=true;
-    //rotateCount=1;
     if(!isGameOver)
     {
         bool isRightMost=false;
@@ -175,34 +154,20 @@ void updateDemonLeftward1(int value) { //ei method ta leftward 1 ke update korbe
             glutTimerFunc(2000, updateDemonLeftward1, 0);
             isRightMost=false;
 
-            //Sleep(1000);
-            //_angle2 -= 0.5f;
             isShotLeft1=true;
 
-
-
-            //glutTimerFunc(1000,updateDemonLeftward1, 0);
-            //glutTimerFunc(25, update, 0);
         }
         else if(rotateCountLeftward1==0 && isLeftMost && isShotLeft1)
         {
             glutTimerFunc(500, updateDemonLeftward1, 0);
             isRightMost=false;
 
-            //Sleep(1000);
             _angle2 -= 0.5f;
             heatVisionLeft1=true;
 
             Sound(4);
-            Sleep(200);
             Sound(2);
 
-
-
-            //glutTimerFunc(1000,updateDemonLeftward1, 0);
-
-            //printf("%d")
-            //glutTimerFunc(25, update, 0);
         }
         else if(rotateCountLeftward1==1 && !isRightMost){
 
@@ -248,7 +213,6 @@ void drawDemonLeftward2() {
     {
         initiateLeft2();
     }
-    //glutTimerFunc(50, updateDemons, 0);
 
 	glPushMatrix();
 	glRotatef(_angle1, 0.0, 0.0, 1.0);
@@ -272,6 +236,7 @@ void drawDemonLeftward2() {
 	glEnd();
 
 	glBegin(GL_POLYGON);//matha
+	glColor3f(0.0,0.0,1.0);
 	for(int i=0;i<50;i++)
 	{
 		float pi=3.1416;
@@ -297,7 +262,6 @@ void drawDemonLeftward2() {
     glPopMatrix();
 
 	glutSwapBuffers();
-	//glutTimerFunc(25, updateDemons, 0);
 }
 
 
@@ -306,7 +270,6 @@ void updateDemonLeftward2(int value) { //ei method ta leftward 2 ke update korbe
     if(!isGameOver)
     {
         isShot=true;
-        //rotateCount=1;
         bool isRightMost=false;
         bool isLeftMost=false;
 
@@ -326,7 +289,6 @@ void updateDemonLeftward2(int value) { //ei method ta leftward 2 ke update korbe
             secondDemonLeftMost=false;
             isShotLeft2=false;
         }
-        //else rotateCount=0;
         if(rotateCount==0 && !isLeftMost)
         {
             _angle1 -= 0.5f;
@@ -336,9 +298,7 @@ void updateDemonLeftward2(int value) { //ei method ta leftward 2 ke update korbe
         {
             glutTimerFunc(2500, updateDemonLeftward2, 0);
             isRightMost=false;
-            //_angle1 -= 0.5f;
             isShotLeft2=true;
-            //glutTimerFunc(25, update, 0);
         }
         else if(rotateCount==0 && isLeftMost && isShotLeft2)
         {
@@ -348,10 +308,7 @@ void updateDemonLeftward2(int value) { //ei method ta leftward 2 ke update korbe
             heatVisionLeft2=true;
 
             Sound(4);
-            Sleep(200);
             Sound(2);
-
-            //glutTimerFunc(25, update, 0);
         }
         else if(rotateCount==1 && !isRightMost){
             _angle1 += 0.75f;
@@ -361,7 +318,6 @@ void updateDemonLeftward2(int value) { //ei method ta leftward 2 ke update korbe
             _angle1 += 0.75f;
             glutTimerFunc(2400, updateDemonLeftward2, 0);
 
-            //Shot hoise ki na sheita check korbe
             if(!heatVisionLeft2) //shot hoy nai, agei maira felse
             {
                 printf("safe\n");
@@ -393,8 +349,6 @@ void drawDemonRightward1() {
     {
         initiateRight1();
     }
-    //glutTimerFunc(50, updateDemons, 0);
-
 	glPushMatrix();
 	glRotatef(_angle3, 0.0, 0.0, 1.0);
 	glTranslatef(0.35, .6, 0.0);
@@ -417,6 +371,7 @@ void drawDemonRightward1() {
 	glEnd();
 
 	glBegin(GL_POLYGON);//matha
+	glColor3f(0.0,0.0,0.0);
 	for(int i=0;i<50;i++)
 	{
 		float pi=3.1416;
@@ -442,14 +397,12 @@ void drawDemonRightward1() {
     glPopMatrix();
 
 	glutSwapBuffers();
-	//glutTimerFunc(25, updateDemons, 0);
 }
 
 void updateDemonRightward1(int value) { //ei method ta rightward 1 ke update korbe
     if(!isGameOver)
     {
         isShot=true;
-    //rotateCount=1;
         bool isRightMost=false;
         bool isLeftMost=false;
 
@@ -457,7 +410,6 @@ void updateDemonRightward1(int value) { //ei method ta rightward 1 ke update kor
             rotateCountRightward1=0;
             isRightMost=true;
             firstDemonRightMost=true;
-            //glutTimerFunc(2500,update,0);
         }
         else if(_angle3 > 90){
             rotateCountRightward1=1;
@@ -470,19 +422,15 @@ void updateDemonRightward1(int value) { //ei method ta rightward 1 ke update kor
             isShotRight1=false;
         }
 
-        //else rotateCount=0;
         if(rotateCountRightward1==1 && !isLeftMost)
         {
             _angle3 -= 0.75f;
             glutTimerFunc(5, updateDemonRightward1, 0);
-            //printf("Rotate=1,Right=0\n");
         }
         else if(rotateCountRightward1==1 && isLeftMost)
         {
             glutTimerFunc(2800, updateDemonRightward1, 0);
-            //isRightMost=false;
             _angle3 -= 0.75f;
-            //Shot hoise ki na sheita check korbe
             if(!heatVisionRight1) //shot hoy nai, agei maira felse
             {
                 printf("safe\n");
@@ -501,11 +449,9 @@ void updateDemonRightward1(int value) { //ei method ta rightward 1 ke update kor
         else if(rotateCountRightward1==0 && !isRightMost){
             _angle3 += 0.75f;
             glutTimerFunc(5, updateDemonRightward1, 0);
-            //printf("Rotate=0,Left=0\n");
         }
         else if(rotateCountRightward1==0 && isRightMost && !isShotRight1){
             glutTimerFunc(2500, updateDemonRightward1, 0);
-            //_angle3 += 0.75f;
             isShotRight1=true;
         }
         else if(rotateCountRightward1==0 && isRightMost && isShotRight1){
@@ -514,7 +460,6 @@ void updateDemonRightward1(int value) { //ei method ta rightward 1 ke update kor
             heatVisionRight1=true;
 
             Sound(4);
-            Sleep(200);
             Sound(2);
 
         }
@@ -531,7 +476,6 @@ void drawDemonRightward2() {
     {
         initiateRight2();
     }
-    //glutTimerFunc(50, updateDemons, 0);
 
 	glPushMatrix();
 	glRotatef(_angle4, 0.0, 0.0, 1.0);
@@ -580,7 +524,6 @@ void drawDemonRightward2() {
     glPopMatrix();
 
 	glutSwapBuffers();
-	//glutTimerFunc(25, updateDemons, 0);
 }
 
 void updateDemonRightward2(int value) { //ei method ta rightward 2 ke update korbe
@@ -595,7 +538,6 @@ void updateDemonRightward2(int value) { //ei method ta rightward 2 ke update kor
             rotateCountRightward2=0;
             isRightMost=true;
             secondDemonRightMost=true;
-            //glutTimerFunc(2500,update,0);
         }
         else if(_angle4 > 90){
             rotateCountRightward2=1;
@@ -608,17 +550,14 @@ void updateDemonRightward2(int value) { //ei method ta rightward 2 ke update kor
             isShotRight2=false;
         }
 
-        //else rotateCount=0;
         if(rotateCountRightward2==1 && !isLeftMost)
         {
             _angle4 -= 0.75f;
             glutTimerFunc(5, updateDemonRightward2, 0);
-            //printf("Rotate=1,Right=0\n");
         }
         else if(rotateCountRightward2==1 && isLeftMost)
         {
             glutTimerFunc(2100, updateDemonRightward2, 0);
-            //isRightMost=false;
             _angle4 -= 0.75f;
 
 
@@ -640,11 +579,9 @@ void updateDemonRightward2(int value) { //ei method ta rightward 2 ke update kor
         else if(rotateCountRightward2==0 && !isRightMost){
             _angle4 += 0.75f;
             glutTimerFunc(5, updateDemonRightward2, 0);
-            //printf("Rotate=0,Left=0\n");
-        }
+          }
         else if(rotateCountRightward2==0 && isRightMost && !isShotRight2){
             glutTimerFunc(2500, updateDemonRightward2, 0);
-            //_angle4 += 0.75f;
 
             isShotRight2=true;
         }
@@ -655,7 +592,7 @@ void updateDemonRightward2(int value) { //ei method ta rightward 2 ke update kor
             heatVisionRight2=true;
 
             Sound(4);
-            Sleep(200);
+
             Sound(2);
 
         }

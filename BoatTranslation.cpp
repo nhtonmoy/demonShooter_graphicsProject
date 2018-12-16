@@ -1,9 +1,3 @@
-
-float camPosY = 0.0f;
-float camPosX = 0.0f;
-float camPosZ = 5.0f;
-
-void update(int i);
 void updateBoats();
 
 float transFactor = 0.0f;
@@ -80,10 +74,7 @@ void drawBoats()
 
     glPopMatrix();
 
-
     glutSwapBuffers();
-    //Sleep(500);
-//    glutTimerFunc(70,updateBoats,0);
 
     updateBoats();
 
@@ -99,6 +90,5 @@ void updateBoats()
            transFactor = -1 * getXBoats(256 * 2);
         glutPostRedisplay();
     }
-    //glutTimerFunc(20,update,0);
 }
 

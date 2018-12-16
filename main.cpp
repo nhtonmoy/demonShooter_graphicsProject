@@ -6,6 +6,7 @@
 #include<bits/stdc++.h>
 #include <mmsystem.h>
 
+bool isNew=false;
 bool isGameOver=true;
 void update(int i);
 int restartable=0;
@@ -16,17 +17,17 @@ int score;
 int shotCounter=0;
 float xLife=.4;
 float xDeath=.4;
-float xDef=1.2/4;
+float xDef=1.2/5;
 
 void Sound(int x)
 {
     if(x==1)
     {
         PlaySound(TEXT("Gun+Shot2.wav"), NULL, SND_FILENAME|SND_ASYNC);
+        Sleep(200);
     }
     else if(x==2)
     {
-        //PlaySound(TEXT("nature.wav"), NULL, SND_FILENAME|SND_LOOP|SND_ASYNC);
         PlaySound(TEXT("Fishing Boat And Waves 02 _ Sound Effect (192kbit_AAC) 00_00_00-00_00_10.wav"), NULL, SND_FILENAME|SND_LOOP|SND_ASYNC);
     }
     else if(x==3)
@@ -36,6 +37,7 @@ void Sound(int x)
     else if(x==4)
     {
         PlaySound(TEXT("heatVision.wav"), NULL, SND_FILENAME|SND_ASYNC);
+        Sleep(200);
     }
 
 }
@@ -48,6 +50,7 @@ void Sound(int x)
 
 void initiateRestart()
 {
+    isNew=false;
     _angle1 = 90.0f;
     _angle2 = 90.0f;
     _angle3 = 90.0f;
@@ -112,7 +115,6 @@ void mouse(int button, int state, int x, int y) {
         if(!isGameOver && !isFirst)
         {
             Sound(1);
-            Sleep(200);
             Sound(2);
         }
 
@@ -123,12 +125,68 @@ void mouse(int button, int state, int x, int y) {
             {
                 isFirst=false;
                 isGameOver=false;
-                glutReshapeWindow(1024,768);
+                glutPostRedisplay();
                 Sound(2);
             }
         }
-//        printf("%d\n",mx);
-//        printf("%d\n",my);
+        if(isGameOver)
+        {
+
+            if(mx >= 385 && mx <= 640 && my >= 270 && my <= 385)
+            {
+
+                isFirst=false;
+                isGameOver=false;
+                isNew=false;
+
+
+                _angle1 = 90.0f;
+                _angle2 = 90.0f;
+                _angle3 = 90.0f;
+                _angle4 = 90.0f;
+
+                xLife=.4;
+                xDeath=.4;
+
+                firstDemonLeftMost=false;
+                secondDemonLeftMost=false;
+                firstDemonRightMost=false;
+                secondDemonRightMost=false;
+
+
+                isShotLeft1=false;
+                isShotLeft2=false;
+                isShotRight1=false;
+                isShotRight2=false;
+
+                heatVisionLeft1=false;
+                heatVisionRight1=false;
+                heatVisionLeft2=false;
+                heatVisionRight2=false;
+
+                shotCounter=0;
+                score=0;
+
+                isInitiatedLeft1=false;
+                isInitiatedLeft2=false;
+                isInitiatedRight1=false;
+                isInitiatedRight2=false;
+
+
+                rotateCount=0;
+                rotateCountLeftward1=0;
+                rotateCountRightward1=0;
+                rotateCountRightward2=0;
+
+
+                isInitiatedBoat=false;
+                Sound(2);
+
+                glutPostRedisplay();
+
+            }
+        }
+
 
         if(firstDemonLeftMost) //first demon leftmost position e ase
         {
@@ -194,65 +252,8 @@ void mouse(int button, int state, int x, int y) {
                     score++;
                     break;
                 }
-
             }
         }
-        if(isGameOver)
-        {
-
-            if(mx >= 385 && mx <= 640 && my >= 270 && my <= 385)
-            {
-
-                isFirst=false;
-                isGameOver=false;
-                glutReshapeWindow(1024,768);
-
-                _angle1 = 90.0f;
-                _angle2 = 90.0f;
-                _angle3 = 90.0f;
-                _angle4 = 90.0f;
-
-                xLife=.4;
-                xDeath=.4;
-
-                firstDemonLeftMost=false;
-                secondDemonLeftMost=false;
-                firstDemonRightMost=false;
-                secondDemonRightMost=false;
-
-
-                isShotLeft1=false;
-                isShotLeft2=false;
-                isShotRight1=false;
-                isShotRight2=false;
-
-                heatVisionLeft1=false;
-                heatVisionRight1=false;
-                heatVisionLeft2=false;
-                heatVisionRight2=false;
-
-                shotCounter=0;
-                score=0;
-
-                isInitiatedLeft1=false;
-                isInitiatedLeft2=false;
-                isInitiatedRight1=false;
-                isInitiatedRight2=false;
-
-
-                rotateCount=0;
-                rotateCountLeftward1=0;
-                rotateCountRightward1=0;
-                rotateCountRightward2=0;
-
-
-                isInitiatedBoat=false;
-                Sound(2);
-
-            }
-        }
-
-
     }
 
 
@@ -263,52 +264,10 @@ void mouse(int button, int state, int x, int y) {
 
 void init(void)
 {
-    //glClearColor (1.0, 01.0, 01.0, 0.0);
     glClearColor(0.2, 1.0, 0.3, 0.0);
-    //glShadeModel (GL_FLAT);
 
 }
 
-
-
-void update(int i)
-{
-    //gluLookAt(0,camPosy,0,0.0,0.0,0.0,0.0,0.0,0.0);
-    glutPostRedisplay();
-}
-int called=0;
-void Environment(void)
-{
-
-    glClear (GL_COLOR_BUFFER_BIT);
-    glLoadIdentity ();
-
-
-    sky();
-    paharPorbot();
-
-    drawDemons();
-
-    buildingLeft();
-    buildingRight();
-    river();
-    drawBoats();
-
-//    Beep(25,25);
-    //PlaySound(TEXT("nature.wav"), NULL, SND_SYNC|SND_FILENAME);
-    glFlush();
-}
-void test()
-{
-    glClear (GL_COLOR_BUFFER_BIT);
-    glLoadIdentity ();
-
-
-    sky();
-    paharPorbot();
-    glFlush();
-
-}
 
 void gameover()
 {
@@ -320,6 +279,10 @@ void gameover()
     highscore();
     restart();
     highScoreShow();
+
+    instructions();
+    about();
+    developedBy();
 }
 
 void start()
@@ -334,6 +297,9 @@ void start()
     startNewGame();
     highScoreShow();
 
+    instructions();
+    about();
+    developedBy();
 }
 
 void gameStarted()
@@ -375,7 +341,6 @@ void display()
 {
     glClear (GL_COLOR_BUFFER_BIT);
     glLoadIdentity ();
-    //PlaySound(TEXT("nature.wav"), NULL, SND_SYNC|SND_FILENAME);
 
     if(isFirst)
     {
@@ -387,19 +352,16 @@ void display()
     }
     else if(!isFirst)
     {
-        if(shotCounter < 4) //score<4
+        if(shotCounter < 5) //score<4
         {
-            glutReshapeWindow(1024,768);
             isGameOver=false;
             gameStarted();
 
         }
-        else if(shotCounter>=4)
+        else if(shotCounter>=5)
         {
             initiateRestart();
             isGameOver=true;
-            glutReshapeWindow(1023,768);
-            //printf("%d\n",restartable++);
             printf("%d\n",shotCounter);
 
             gameover();
@@ -417,19 +379,16 @@ int main(int argc, char** argv)
 
     glutInit(&argc, argv);
     glutInitDisplayMode (GLUT_SINGLE | GLUT_RGB);
-    glutInitWindowSize (1023, 767);
+    glutInitWindowSize (1024, 768);
     glutInitWindowPosition (100, 100);
 
-    glutCreateWindow (argv[0]);
+    glutCreateWindow ("DEMON SHOOTER");
 
     glutDisplayFunc(display);
     init ();
 
 
-    //Environment();
     glutMouseFunc(mouse);
-    //glutReshapeFunc(reshape);
-    //glutSpecialFunc(specialKeys);
     glutMainLoop();
     return 0;
 }

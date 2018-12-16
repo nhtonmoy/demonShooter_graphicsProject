@@ -23,15 +23,6 @@ void rightBuildingErJanala(float x, float y)
 
 void buildingLeft(void)
 {
-                /* clear the matrix */
-           /* viewing transformation  */
-    //gluLookAt (camPosX, camPosY, camPosZ, 0.0, 0.0, 0.0, 0.0,1.0, 0.0);
-    //glPushMatrix();
-
-   //glScalef (1.0, 2.0, 1.0);      /* modeling transformation */
-   //float size = 1.0;
-   //glutWireCube (2.0);
-   //glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     glColor3f (1.0, 1.0, 1.0);
     glBegin(GL_QUADS); //Front
         glVertex3f(-.80,-.20,0);
@@ -72,16 +63,6 @@ void buildingLeft(void)
 
 void buildingRight(void)
 {
-    //glClear (GL_COLOR_BUFFER_BIT);
-
-            /* clear the matrix */
-           /* viewing transformation  */
-    //gluLookAt (camPosX, camPosY, camPosZ, 0.0, 0.0, 0.0, 0.0,1.0, 0.0);
-    //glPushMatrix();
-
-   //glScalef (1.0, 2.0, 1.0);      /* modeling transformation */
-   //float size = 1.0;
-   //glutWireCube (2.0);
     glColor3f (1.0, 1.0, 1.0);
     glBegin(GL_QUADS); //Front
         glVertex3f(-.2,-.20,0);
